@@ -15,7 +15,6 @@
 #include <learnopengl/model.h>
 
 #include <iostream>
-#include <glm/gtx/string_cast.hpp>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
@@ -107,6 +106,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -136,7 +136,7 @@ int main() {
     }
 
     // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
-   // stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(false);
 
     programState = new ProgramState;
     programState->LoadFromFile("resources/program_state.txt");
@@ -155,6 +155,9 @@ int main() {
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_MULTISAMPLE);
+//    glEnable(GL_CULL_FACE);
+//    glCullFace(GL_BACK);
 
     // build and compile shaders
     // -------------------------
@@ -220,7 +223,6 @@ int main() {
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // first, configure the cube's VAO (and VBO)
     unsigned int VBO;
     glGenBuffers(1, &VBO);
 
@@ -233,7 +235,7 @@ int main() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+    //configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
     unsigned int lightCubeVAO;
     glGenVertexArrays(1, &lightCubeVAO);
     glBindVertexArray(lightCubeVAO);
@@ -245,9 +247,9 @@ int main() {
 
     PointLight& pointLight = programState->pointLight;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
-    pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+    pointLight.ambient = glm::vec3(0.2, 0.2, 0.2);
     pointLight.diffuse = glm::vec3(0.6, 0.6, 0.6);
-    pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
+    pointLight.specular = glm::vec3(0.6, 0.6, 0.6);
 
     pointLight.constant = 1.0f;
     pointLight.linear = 0.09f;
@@ -257,6 +259,7 @@ int main() {
     ourShader.use();
     ourShader.setInt("material.texture_diffuse1", 0);
     ourShader.setInt("material.texture_specular1", 1);
+    ourShader.setInt("material.texture_normal1", 2);
 
     // render loop
     // -----------
@@ -280,11 +283,6 @@ int main() {
         ourShader.use();
         ourShader.setVec3("viewPosition", programState->camera.Position);
         ourShader.setFloat("material.shininess", 32.0f);
-
-        ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-        ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-        ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
         // point light 1
         ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
         ourShader.setVec3("pointLights[0].ambient", pointLight.ambient);
@@ -332,15 +330,15 @@ int main() {
         lightShader.setMat4("view", view);
 
         // we now draw as many light bulbs as we have point lights.
-        glBindVertexArray(lightCubeVAO);
-        for (unsigned int i = 0; i < 4; i++)
-        {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, pointLightPositions[i]);
-            model = glm::scale(model, glm::vec3(0.45f)); // Make it a smaller cube
-            lightShader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+//        glBindVertexArray(lightCubeVAO);
+//        for (unsigned int i = 0; i < 4; i++)
+//        {
+//            glm::mat4 model = glm::mat4(1.0f);
+//            model = glm::translate(model, pointLightPositions[i]);
+//            model = glm::scale(model, glm::vec3(0.45f)); // Make it a smaller cube
+//            lightShader.setMat4("model", model);
+//            glDrawArrays(GL_TRIANGLES, 0, 36);
+//        }
 
         if (programState->ImGuiEnabled)
             DrawImGui(programState);

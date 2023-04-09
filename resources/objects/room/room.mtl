@@ -55,7 +55,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd beige_carpet_Base_Color.jpg
-map_bump beige_carpet_Normal.jpg
+map_bump beige_carpet_Height.jpg
 map_Ns beige_carpet_Roughness.jpg
 
 newmtl Black_Plastic
@@ -67,7 +67,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd white.png
+map_Kd rghblck_baseColor.jpeg
+map_Ns scratches_1_2K.png
 
 newmtl Black_Rubber
 Ns 39.999995
@@ -463,8 +464,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_bump Fabric19_nrm.jpg
 map_Kd Fabric19_disp.jpg
+map_bump Fabric19_nrm.jpg
 map_Ns Fabric19_rgh.jpg
 
 newmtl Floor_Lamp
@@ -476,9 +477,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump Floor Lamp_Normal.jpg
-map_Kd Floor Lamp_Albedo.png
-map_Ns Floor Lamp_Roughness.png
+map_Kd Floor_Lamp_Albedo.png
+map_Ns Floor_Lamp_Roughness.png
+map_bump -bm 1.00000 Floor_Lamp_Normal.jpg
+
 
 newmtl Floor_Lamp_Lighting
 Ns 359.999993
@@ -489,8 +491,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Floor Lamp_Albedo.png
-map_Ns Floor Lamp_Roughness.png
+map_Kd Floor_Lamp_Albedo.png
+map_Ns Floor_Lamp_Roughness.png
 
 newmtl KACA2.001
 Ns 159.999981
@@ -534,8 +536,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump Material.001_normal.png
 map_Kd Material.001_baseColor.png
+map_bump -bm 1.000000 Material.001_normal.png
+map_Ns Material.001_metallicRoughness.png
 
 newmtl Material.003
 Ns 159.999981
@@ -592,7 +595,6 @@ d 1.000000
 illum 2
 map_Kd Grey-Matte.jpg
 
-#fix
 newmtl Painting
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
@@ -602,9 +604,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_bump -bm 0.100000 Normal.jpg
-map_Kd Creación_de_Adán_Miguel_Ángel-1200x5451.jpg
+map_Kd pic.png
 map_Ns Roughness.jpg
+
 
 newmtl Putih
 Ns 159.999981
@@ -626,21 +628,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump Shelf_frame_normal.png
 map_Kd Shelf_frame_baseColor.jpeg
+map_bump Shelf_frame_normal.png
+map_Ns Shelf_frame_metallicRoughness.png
 
-newmtl Stylised_wood
-Ns 359.999993
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd albedo.jpg
-map_Ns rough.jpg
-map_Bump normal.jpg
 
 newmtl TT_checker_1024x1024_UV_GRID.001
 Ns 250.000000
@@ -652,8 +643,8 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd low_TT_checker_1024x1024_UV_GRID_BaseColor.jpg
-map_Bump low_TT_checker_1024x1024_UV_GRID_Normal.jpg
 map_Ns low_TT_checker_1024x1024_UV_GRID_Roughness.jpg
+
 
 newmtl Wood
 Ns 250.000000
@@ -665,6 +656,8 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Wood058_2K_Color.jpg
+map_Ns Wood058_2K_Roughness.jpg
+map_bump Wood058_2K_Normal.jpg
 
 newmtl Wood.001
 Ns 250.000000
@@ -683,11 +676,11 @@ Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
- d 1.000000
+d 1.000000
 illum 2
 map_Kd albedo.jpg
 map_Ns rough.jpg
-map_Bump -bm 1.000000 normal.jpg
+map_bump -bm 1.000000 normal.jpg
 
 newmtl acer_logo
 Ns 250.000000
@@ -712,7 +705,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Ns screen_metallicRoughness.png
 
 newmtl achter.onder.vlak.001
@@ -725,7 +718,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Ns screen_metallicRoughness.png
 
 newmtl achter.ribbel.001
@@ -737,7 +730,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump screen_normal.png
+map_Kd blckshn_baseColor.jpeg
+map_bump screen_normal.png
+map_Ns screen_metallicRoughness.png
 
 
 newmtl back
@@ -749,7 +744,6 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump -bm 0.100000 Normal.jpg
 map_Kd Diffuse.jpg
 map_Ns Roughness.jpg
 
@@ -762,8 +756,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_Kd backpanel_baseColor.png
 map_Ns screen_metallicRoughness.png
 
 newmtl blckshn
@@ -830,7 +823,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.550000
 illum 9
-map_Ke glowijo.001_emissive.jpeg
+map_Kd glowijo.001_emissive.jpeg
 
 newmtl gold.plug
 Ns 859.834660
@@ -841,6 +834,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
+map_Kd gold.jpeg
 
 newmtl grid_knop
 Ns 250.000000
@@ -852,7 +846,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Ns screen_metallicRoughness.png
 
 newmtl indictor.light
@@ -864,6 +858,7 @@ Ke 0.000000 0.058233 1.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd white1.png
 
 newmtl kaca
 Ns 159.999981
@@ -885,6 +880,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd white.png
 
 newmtl kacak2
 Ns 159.999981
@@ -895,6 +891,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd kacak2_baseColor.png
 map_d kacak2_baseColor.png
 
 newmtl kuning
@@ -906,6 +903,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd gold.jpeg
 
 newmtl lampu
 Ns 159.999981
@@ -916,6 +914,7 @@ Ke 0.000000 1.000000 0.039043
 Ni 1.450000
 d 0.550000
 illum 9
+map_Kd fgreen.jpg
 
 newmtl leave_1_MatSG
 Ns 359.999993
@@ -928,7 +927,7 @@ d 1.000000
 illum 2
 map_Kd plant.jpg
 map_Ns plant_Gloss.jpg
-map_bump plant_Normal.jpg
+map_d plant_Opacity.jpg
 
 newmtl logo.coutout.smooth
 Ns 250.000000
@@ -939,6 +938,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Ns screen_metallicRoughness.png
 
 newmtl logo.coutout.smooth.001
 Ns 250.000000
@@ -949,7 +949,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump screen_normal.png
+map_bump -bm 1.000000 screen_normal.png
 
 newmtl logologo
 Ns 159.999981
@@ -971,6 +971,7 @@ Ke 1.000000 1.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd white.png
 
 newmtl material_10
 Ns 159.999981
@@ -981,6 +982,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd fgreen.jpg
 
 newmtl material_11
 Ns 250.000000
@@ -991,6 +993,9 @@ Ke 0.100000 0.100000 0.100000
 Ni 1.450000
 d 0.700000
 illum 9
+map_Kd fgreen.jpg
+map_Ns material_11_metallicRoughness.png
+
 
 newmtl material_12
 Ns 159.999981
@@ -1012,6 +1017,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd alum.jpg
 
 newmtl material_18
 Ns 250.000000
@@ -1022,6 +1028,7 @@ Ke 0.949743 0.027975 0.027975
 Ni 1.450000
 d 0.700000
 illum 9
+map_Kd red.png
 
 newmtl material_23
 Ns 159.999981
@@ -1055,6 +1062,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd bred.jpeg
 
 newmtl material_28
 Ns 159.999981
@@ -1087,6 +1095,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd pink.jpg
 
 newmtl metaal.
 Ns 566.218616
@@ -1098,6 +1107,8 @@ Ni 1.450000
 d 1.000000
 illum 3
 
+map_Kd metaal.jpg
+
 newmtl metaal_voetstuk
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
@@ -1107,7 +1118,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Kd blckshn_baseColor.jpeg
 map_Ns screen_metallicRoughness.png
 
@@ -1120,6 +1131,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
+map_Kd metaal.jpg
 
 newmtl noise_knoppen
 Ns 250.000000
@@ -1130,7 +1142,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump screen_normal.png
+map_Kd blckshn_baseColor.jpeg
+map_bump screen_normal.png
+map_Ns screen_metallicRoughness.png
 
 newmtl noise_knoppen.001
 Ns 250.000000
@@ -1141,7 +1155,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump screen_normal.png
+map_Kd blckshn_baseColor.jpeg
+map_bump screen_normal.png
+map_Ns screen_metallicRoughness.png
 
 newmtl noise_plastic_algemeen
 Ns 250.000000
@@ -1153,7 +1169,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Ns screen_metallicRoughness.png
 
 newmtl noise_plastic_voet
@@ -1166,7 +1182,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Ns screen_metallicRoughness.png
 
 newmtl plastic.hdmi
@@ -1178,6 +1194,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd blckshn_baseColor.jpeg
 
 newmtl proc
 Ns 250.000000
@@ -1211,7 +1228,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd blckshn_baseColor.jpeg
-map_Bump screen_normal.png
+map_bump screen_normal.png
 map_Ns screen_metallicRoughness.png
 
 newmtl rand.voor.ribbel
@@ -1223,7 +1240,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump screen_normal.png
+ map_bump screen_normal.png
 map_Kd blckshn_baseColor.jpeg
 map_Ns screen_metallicRoughness.png
 
@@ -1243,7 +1260,7 @@ Ns 159.999981
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
 Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
+ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
@@ -1258,6 +1275,7 @@ Ke 0.000000 1.000000 1.000000
 Ni 1.450000
 d 0.190782
 illum 9
+map_Kd blue.png
 
 newmtl whiskers
 Ns 250.000000
@@ -1269,7 +1287,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd dingus_whiskers.tga.png
-map_d dingus_whiskers.tga
+#map_d dingus_whiskers.tga
 
 newmtl zwart_metaal
 Ns 618.368347
@@ -1280,3 +1298,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
+map_Kd rghblck_baseColor.jpeg
