@@ -1,10 +1,10 @@
 #version 330 core
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
+layout (location = 1) out vec4 BrightColor;
 
 struct Material {
     sampler2D texture_diffuse1;
     sampler2D texture_specular1;
-    sampler2D texture_normal1;
 
     float shininess;
 };
@@ -39,7 +39,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     vec3 halfwayDir = normalize(lightDir + viewDir);
     float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
     // attenuation
-    float distance = length(light.position - fragPos);
+    float distance = length(FragPos - light.position);
     float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
     // blending discard
     if(texture(material.texture_diffuse1, TexCoords).a < 0.2)
@@ -63,5 +63,10 @@ void main()
     for(int i = 0; i < 3; i++){
        result += CalcPointLight(pointLights[i], normal, FragPos, viewDir);
     }
+     float brightness = dot(result, vec3(0.2126, 0.7152, 0.0722));
+     if(brightness > 1.0)
+             BrightColor = vec4(result, 1.0);
+         else
+             BrightColor = vec4(0.0, 0.0, 0.0, 1.0);
     FragColor = vec4(result, 1.0);
 }

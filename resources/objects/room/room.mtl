@@ -781,17 +781,6 @@ d 1.000000
 illum 2
 map_Kd cable_baseColor.jpeg
 
-newmtl dingus
-Ns 250.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 1
-map_Kd dingus_nowhiskers.jpg
-
 newmtl fiber
 Ns 159.999981
 Ka 1.000000 1.000000 1.000000
@@ -949,7 +938,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_bump -bm 1.000000 screen_normal.png
+map_Kd blckshn_baseColor.jpeg
+map_bump screen_normal.png
+map_Ns screen_metallicRoughness.png
 
 newmtl logologo
 Ns 159.999981
@@ -1276,18 +1267,6 @@ Ni 1.450000
 d 0.190782
 illum 9
 map_Kd blue.png
-
-newmtl whiskers
-Ns 250.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_Kd dingus_whiskers.tga.png
-#map_d dingus_whiskers.tga
 
 newmtl zwart_metaal
 Ns 618.368347
