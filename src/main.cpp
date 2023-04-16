@@ -25,7 +25,7 @@ void drawRoom(Shader ourShader, Model RoomModel);
 void drawDingus(Shader ourShader, Model DingusModel);
 
 // settings
-const unsigned int SCR_WIDTH = 1200;
+const unsigned int SCR_WIDTH = 1300;
 const unsigned int SCR_HEIGHT = 1000;
 bool dingus = false;
 bool bloom = true;
@@ -278,8 +278,8 @@ int main() {
     pointLight.specular = glm::vec3(0.6, 0.6, 0.6);
 
     pointLight.constant = 1.0f;
-    pointLight.linear =  0.070f;
-    pointLight.quadratic =  0.020f;
+    pointLight.linear =  0.09f;
+    pointLight.quadratic =  0.032f;
 
     // MSAA framebuffer
     unsigned int msFBO;
@@ -401,6 +401,7 @@ int main() {
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
+
         // per-frame time logic
         // --------------------
         float currentFrame = glfwGetTime();
