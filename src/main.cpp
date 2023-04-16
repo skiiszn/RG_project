@@ -614,9 +614,9 @@ int main() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
-
     glDeleteVertexArrays(1, &lightCubeVAO);
     glDeleteVertexArrays(1, &quadVAO);
     glDeleteBuffers(1, &quadVBO);
@@ -694,7 +694,6 @@ void DrawImGui(ProgramState *programState) {
     ImGui::NewFrame();
 
     {
-        static float f = 0.0f;
         ImGui::Begin("Office");
         ImGui::ColorEdit3("Background color", (float *) &programState->clearColor);
         ImGui::DragFloat("pointLight.constant", &programState->pointLight.constant, 0.05, 0.0, 1.0);

@@ -1,9 +1,7 @@
 # Modern office 
 > Project for Computer Graphics course using OpenGL
-> 
-[Demo video](https://www.youtube.com/watch?v=G6pFzjSX3lw)
-
----
+>
+> [Demo video](https://www.youtube.com/watch?v=G6pFzjSX3lw)
 ## Controls
 - **WASD** - camera movement
 
@@ -14,12 +12,12 @@
 - **R** - hold for Maxwell dance
 
 - **F1** - ImGui
----
+
 ## Implemented lessons
 
 - Group A : **Anti-Aliasing and Framebuffers**
 - Group B : **HDR and Bloom**
----
+
 
 ## Resources and credits
 
@@ -39,10 +37,15 @@
 - [Monitor](https://skfb.ly/o8vT7) by Turtle_Flipper is licensed under [Creative Commons Attribution](http://creativecommons.org/licenses/by/4.0/).
 - [Computer](https://skfb.ly/6Cs9Q) by JohanKL is licensed under [Creative Commons Attribution](http://creativecommons.org/licenses/by/4.0/).
 - [Bookcase](https://skfb.ly/oBUOJ) by 3D_for_everyone is licensed under [Creative Commons Attribution](http://creativecommons.org/licenses/by/4.0/).
----
+
 ## Pictures
 <p>
     <img src="gallery/2.png" width="80%"/>
 </p>
+
+<p>
+    <img src="gallery/1.png" width="80%">
+</p>
+
 
 
