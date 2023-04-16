@@ -30,7 +30,7 @@ const unsigned int SCR_HEIGHT = 1000;
 bool dingus = false;
 bool bloom = true;
 bool bloomKeyPressed = false;
-float exposure = 0.8f;
+float exposure = 1.0f;
 
 // camera
 float lastX = SCR_WIDTH / 2.0f;
@@ -110,7 +110,6 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_SAMPLES, 8);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -164,10 +163,11 @@ int main() {
 
     // build and compile shaders
     // -------------------------
-    Shader ourShader("resources/shaders/2.model_lighting.vs", "resources/shaders/2.model_lighting.fs");
+    Shader ourShader("resources/shaders/model_lighting.vs", "resources/shaders/model_lighting.fs");
     Shader shaderBloom ("resources/shaders/bloom.vs","resources/shaders/bloom.fs");
     Shader shaderBlur ("resources/shaders/blur.vs","resources/shaders/blur.fs");
-    Shader lightShader ("resources/shaders/2.model_lighting.vs","resources/shaders/light_source.fs");
+    Shader lightShader ("resources/shaders/model_lighting.vs","resources/shaders/light_source.fs");
+    Shader framebufferShader("resources/shaders/framebuffer.vs", "resources/shaders/framebuffer.fs");
 
     // load models
     // -----------
@@ -278,8 +278,8 @@ int main() {
     pointLight.specular = glm::vec3(0.6, 0.6, 0.6);
 
     pointLight.constant = 1.0f;
-    pointLight.linear = 0.09f;
-    pointLight.quadratic = 0.032f;
+    pointLight.linear =  0.070f;
+    pointLight.quadratic =  0.020f;
 
     // MSAA framebuffer
     unsigned int msFBO;
@@ -296,7 +296,7 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
     glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D_MULTISAMPLE, textureColorBuffer, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureColorBuffer, 0);
 
     // create a multisampled renderbuffer object for depth and stencil attachments
     unsigned int rbo;
@@ -386,7 +386,6 @@ int main() {
     ourShader.use();
     ourShader.setInt("material.texture_diffuse1", 0);
     ourShader.setInt("material.texture_specular1", 1);
-    ourShader.setInt("material.texture_normal1", 2);
 
     shaderBlur.use();
     shaderBlur.setInt("image", 0);
@@ -395,6 +394,9 @@ int main() {
     shaderBloom.setInt("scene", 0);
     shaderBloom.setInt("bloomBlur", 1);
     shaderBloom.setInt("msaa", 2);
+
+    framebufferShader.use();
+    framebufferShader.setInt("screenTexture", 0);
 
     // render loop
     // -----------
@@ -409,17 +411,13 @@ int main() {
         // -----
         processInput(window);
 
-        // render with msaa first
+        // render with msaa
         // -----
         glBindFramebuffer(GL_FRAMEBUFFER, msFBO);
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_MULTISAMPLE);
         glClearColor(programState->clearColor.r, programState->clearColor.g, programState->clearColor.b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glm::mat4 projection = glm::perspective(glm::radians(programState->camera.Zoom),
-                                                (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = programState->camera.GetViewMatrix();
-        glm::mat4 model = glm::mat4(1.0f);
+        glEnable(GL_DEPTH_TEST);
+
         // don't forget to enable shader before setting uniforms
         ourShader.use();
         ourShader.setVec3("viewPosition", programState->camera.Position);
@@ -457,6 +455,9 @@ int main() {
         ourShader.setFloat("pointLights[3].linear", pointLight.linear);
         ourShader.setFloat("pointLights[3].quadratic", pointLight.quadratic);
         // view/projection transformations
+        glm::mat4 projection = glm::perspective(glm::radians(programState->camera.Zoom),
+                                                (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 view = programState->camera.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
@@ -484,6 +485,12 @@ int main() {
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postProcesingFBO);
         glBlitFramebuffer(0, 0, SCR_WIDTH, SCR_HEIGHT, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
+        framebufferShader.use();
+        glBindVertexArray(quadVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, postProcessingTexture); // use the now resolved color attachment as the quad's texture
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
         // render with hdr
         // --------------
         glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
@@ -492,7 +499,7 @@ int main() {
         projection = glm::perspective(glm::radians(programState->camera.Zoom),
                                                 (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
         view = programState->camera.GetViewMatrix();
-        model = glm::mat4(1.0f);
+        glm::mat4 model = glm::mat4(1.0f);
 
         ourShader.use();
         ourShader.setVec3("viewPosition", programState->camera.Position);
@@ -632,10 +639,10 @@ void processInput(GLFWwindow *window) {
         programState->camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         programState->camera.ProcessKeyboard(RIGHT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
+        dingus = false;
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         dingus = true;
-    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-        dingus = false;
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !bloomKeyPressed)
     {
         bloom = !bloom;
@@ -644,17 +651,6 @@ void processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE)
     {
         bloomKeyPressed = false;
-    }
-    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-    {
-        if (exposure > 0.0f)
-            exposure -= 0.001f;
-        else
-            exposure = 0.0f;
-    }
-    else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-    {
-        exposure += 0.001f;
     }
 }
 
